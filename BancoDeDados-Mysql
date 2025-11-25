@@ -1,0 +1,43 @@
+use ProjetoFinal;
+show tables;
+Describe treino;
+describe eventos_alterados;
+
+CREATE TABLE usuarios (
+  id          Int PRIMARY KEY,
+  nome        VARCHAR(150) NOT NULL,
+  contato     VARCHAR(20),
+  whatsapp    VARCHAR(20),
+  nacionalidade VARCHAR(80),
+  cpf         CHAR(11) UNIQUE,
+  email       VARCHAR(255) UNIQUE NOT NULL,
+  senha       VARCHAR(255) NOT NULL,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+  CONSTRAINT cpf_somente_digitos CHECK (cpf IS NULL OR cpf ~ '^[0-9]{11}$')
+);
+
+CREATE TABLE Treino ( id_treino INT AUTO_INCREMENT PRIMARY KEY,
+ usuario_id INT NOT NULL, 
+ nome_treino VARCHAR(100) NOT NULL, data DATE NULL, 
+ dia_semana VARCHAR(20) GENERATED ALWAYS AS (DAYNAME(data)) STORED, 
+ periodo ENUM('Manhã', 'Tarde', 'Noite') NOT NULL, cidade VARCHAR(100), 
+ estado VARCHAR(50), tipo_treino ENUM('Caminhada', 'Corrida', 'Sprint', 'Longao') NOT NULL, 
+ km_por_percurso DECIMAL(5, 2) NOT NULL,
+ FOREIGN KEY (usuario_id) REFERENCES Usuario(id) 
+ );
+ 
+CREATE TABLE eventos_alterados (
+  id_alteracao INT AUTO_INCREMENT PRIMARY KEY,
+   id_treino INT NOT NULL,
+   usuario_id INT NOT NULL,
+   data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   campos_alterados TEXT,
+  FOREIGN KEY (id_treino) REFERENCES Treino(id_treino),
+  FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
+ );
+select * from usuario;
+select * from treino;
+select * from eventos_alterados;
+show tables;
+describe usuario;
