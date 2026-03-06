@@ -63,7 +63,7 @@ Envie suas mudanças para o GitHub: git push origin feature/minha-nova-feature
 
 Abra um Pull Request (PR).
 
-👤 Desenvolvedora Geanne https://www.linkedin.com/in/geannearruda/
+👤 Desenvolvedora Geanne https://www.linkedin.com/in/geannee/
 
 
 
